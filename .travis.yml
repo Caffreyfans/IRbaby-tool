@@ -41,7 +41,7 @@ before_deploy:
 - git config --global user.name "Caffreyfans"
 - git config --global user.email "Caffreyfans@163.com"
 - export RELEASE_FILE=./dist/$(ls dist)
-- git tag 0.1.4
+- git tag 0.1.5
 
 deploy:
   provider: releases
