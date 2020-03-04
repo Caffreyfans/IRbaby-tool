@@ -1,0 +1,75 @@
+# Continuous Integration (CI) is the practice, in software
+# engineering, of merging all developer working copies with a shared mainline
+# several times a day < https://docs.platformio.org/page/ci/index.html >
+#
+# Documentation:
+#
+# * Travis CI Embedded Builds with PlatformIO
+#   < https://docs.travis-ci.com/user/integration/platformio/ >
+#
+# * PlatformIO integration with Travis CI
+#   < https://docs.platformio.org/page/ci/travis.html >
+#
+# * User Guide for `platformio ci` command
+#   < https://docs.platformio.org/page/userguide/cmd_ci.html >
+#
+#
+# Please choose one of the following templates (proposed below) and uncomment
+# it (remove "# " before each line) or use own configuration according to the
+# Travis CI documentation (see above).
+#
+
+
+#
+# Template #1: General project. Test it using existing `platformio.ini`.
+#
+
+language: python
+python:
+    - "3.7"
+
+sudo: false
+
+install:
+    - pip install -U pyinstaller
+    - pip install -r requirements.txt
+
+script:
+    - pyinstaller -F IRbaby-tool.py
+
+before_deploy:
+- git config --global user.name "Caffreyfans"
+- git config --global user.email "Caffreyfans@163.com"
+- git tag 0.1.1
+
+deploy:
+  provider: releases
+  file_glob: true
+  api_key:
+    secure: q+V3ixBe1GJUwkX7dkjek/X8H9lCjkLVgh+BeXD2rOIJe2naB3u4q9LHWFElfh0za+9Bcz1dqyRVcLlbjKpZI0yXcVoNhvd8rlmiFs9Y8l47citaiB+c0vZuZ0afIEBnDnzgDeXSWyF97LmUy9z43A/JkjtyWFxxnVNLjLD2QrqPyFRaVDim8ihXZsxZLgEuHTd1a8nLmaUj1tfWK1A0Ozy5vQqc7PWl6cUj6t6DZw5+FmTAr9j6VYfQvLVfqPlAPicRq4Nn+XqU+Uqlem8f4nE7G301OCw2Kaa6o0tPAAfZ2XF30vu//CE22DudU2yqA2d0utHgDggDACRtwmA9+Fel2Cd7owGxUoAIIBsTEnQEiGMLrYgSOD2NVSfl/By4H2/zzw0ULJyUWGESJymN+H/CJbl1UmPxZw5QemUh8S6KvbzGL379cJYLOlhoupaH7lxH/ImLu3VL5ksSNH2elSBvMu7mFP7SAVe9M6SO+d8HfSW7jKm0H1M9sVoddAzbVpzSxt1qiJTccmn66O7ANHeSYq8HHOeDiewe+Oy2vk5iZomiokBg1ymlcw9ed3GlgB3HG1/DZk90wVgzBMvduG9hcZbf8yJS5kAx/fbU9ISd22KBuWEukOkDCorwbbKUVTpFYdvjnDvkkc0KAiKwBcqfO8qrsfG9cC4F5jBEeQA=
+  file: ./dist/*.exe
+  skip_cleanup: true
+#
+# Template #2: The project is intended to be used as a library with examples.
+#
+
+# language: python
+# python:
+#     - "2.7"
+#
+# sudo: false
+# cache:
+#     directories:
+#         - "~/.platformio"
+#
+# env:
+#     - PLATFORMIO_CI_SRC=path/to/test/file.c
+#     - PLATFORMIO_CI_SRC=examples/file.ino
+#     - PLATFORMIO_CI_SRC=path/to/test/directory
+#
+# install:
+#     - pip install -U platformio
+#     - platformio update
+#
+# script:
+#     - platformio ci --lib="." --board=ID_1 --board=ID_2 --board=ID_N
