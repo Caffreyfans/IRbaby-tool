@@ -41,14 +41,14 @@ script:
 before_deploy:
 - git config --global user.name "Caffreyfans"
 - git config --global user.email "Caffreyfans@163.com"
-- git tag 0.1.7
+- export RELEASE_FILE=$(ls dist)
 
 deploy:
   provider: releases
   file_glob: true
   api_key:
     secure: B/Kelw4E5G1INKKDJurNqJLWnwVDjl96848C8DBIXQaUark5nuYzPLO1gNimFpYDgPrJDiZXyRDUVdUBVA2h1SR09Qz49ECelwt1gj0RdJvt/eIqjAQM8nkXMQf7h5krzT9u++22lqKvWMgH12M0swWX9ARkwvxZbFxulAjBw1kU23ofwsl3K1P3LcLOV2Rr5hfXgRudJzjgC0HeZjXOQV0CzDXwGsfTlxPfsxgREUZeHrYeJvIvehcDTCphbaW+UaNgXDZU8sgth4igSbEUwGtIWxSlWp7RcO11iTdd4uDvc/EqZaCoBwYGSZ4MzFiq3NwtE1GARrbK1aoua5kqi9ADq7mY2MZDe9yfZd+Jr0jbmgLe9INSBZDmlW5eVZi0wDqiuFv0/gfE+1MR8EuJUw1PiEOetWfDHYFplz0pPoPFaElq+nPSpBagT3x4RG8ZRRofz4Zf8CpFLvSZBQnZWxFqEv5403IXwSoKKvWpjaDYThyQMDmYRUcJcZqRH7lag9yHavuTELu0NUHXmSwOp1/PamWJV+6qticurvDSLaSmK+hgjXpCyj9gAvQcL9cdMvrZTyRfHKHLQPbUk3L8BfB3D7A1/XitmW+vTILtqFaeaYAWf+1PJFFeBry9/QhZNIUeD4YWlvc0Mc5hZyZ+Jg4+anhdhZ6aq3YNu/rT9u4=
-  file: ./dist/IRbaby-tool.exe
+  file: "${RELEASE_FILE}"
   skip_cleanup: true
   on:
     tags: true
